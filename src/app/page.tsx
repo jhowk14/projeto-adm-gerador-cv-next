@@ -8,6 +8,8 @@ import { Form, FormDescription} from '@/components/ui/form';
 import { useForm } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import Image from "next/image";
+import { Footer } from "@/components/component/footer";
 
 const schema = z.object({
   firstName: z.string().min(3, {
@@ -45,41 +47,48 @@ export default function Home() {
   };
 
   return (
-    <main className="flex justify-center">
+    <>
+    <main className="flex flex-col items-center">
+      <div className="flex items-center">
+        <div className="mr-4 mt-4">
+          <Image src='/img/icon.png' width={0} height={0} sizes="100vw" alt="logo" className="w-20 h-20"/>
+        </div>
+        <h1 className="text-3xl font-bold">Gerador de Curriculo</h1>
+      </div>
       {
         !pdfUrl && (
           <div className="w-full max-w-4xl p-7">
-          <Form {...form}>
-            <form onSubmit={handleSubmit(fetchPdf)} className="space-y-2">
-              <div>
-                <Label>Nome</Label>
-                <Input placeholder="Fulano" {...register('firstName')} />
-                {errors.firstName && <span className="text-red-500 text-sm inline-block mt-1">
-                  {errors.firstName?.message}
-                </span>}
-              </div>
-              <div>
-                <Label>Sobrenome</Label>
-                <Input placeholder="Ciclano" {...register('lastName')} />
-                {errors.lastName && <span className="text-red-500 text-sm inline-block mt-1">
-                  {errors.lastName?.message}
-                </span>}
-              </div>
-              <div>
-                <Label>Descrição</Label>
-                <Input placeholder="Eu sou ..." {...register('description')} />
-                <FormDescription>
-                  Fale um pouco de sobre você
-                </FormDescription>
-                {errors.description && <span className="text-red-500 text-sm inline-block mt-1">
-                  {errors.description?.message}
-                </span>}
-              </div>
-            <Button type="submit" disabled={isSubmitting || isLoading}>
-              {isSubmitting || isLoading ? "Carregando..." : "Gerar PDF"}
-            </Button>
-            </form>
-          </Form>
+            <Form {...form}>
+              <form onSubmit={handleSubmit(fetchPdf)} className="space-y-2">
+                <div>
+                  <Label>Nome</Label>
+                  <Input placeholder="Fulano" {...register('firstName')} />
+                  {errors.firstName && <span className="text-red-500 text-sm inline-block mt-1">
+                    {errors.firstName?.message}
+                  </span>}
+                </div>
+                <div>
+                  <Label>Sobrenome</Label>
+                  <Input placeholder="Ciclano" {...register('lastName')} />
+                  {errors.lastName && <span className="text-red-500 text-sm inline-block mt-1">
+                    {errors.lastName?.message}
+                  </span>}
+                </div>
+                <div>
+                  <Label>Descrição</Label>
+                  <Input placeholder="Eu sou ..." {...register('description')} />
+                  <FormDescription>
+                    Fale um pouco de sobre você
+                  </FormDescription>
+                  {errors.description && <span className="text-red-500 text-sm inline-block mt-1">
+                    {errors.description?.message}
+                  </span>}
+                </div>
+                <Button type="submit" disabled={isSubmitting || isLoading}>
+                  {isSubmitting || isLoading ? "Carregando..." : "Gerar PDF"}
+                </Button>
+              </form>
+            </Form>
           </div>
         )
       }
@@ -87,5 +96,7 @@ export default function Home() {
         <iframe className="w-screen h-screen" src={pdfUrl} width="100%" height="500px"></iframe>
       )}
     </main>
+    <Footer git="https://github.com/jhowk14/projeto-adm-gerador-cv-next/" youtube="" twitter=""/>
+    </>
   );
 }

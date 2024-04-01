@@ -13,7 +13,7 @@ const schema = z.object({
 export type schemaType = z.infer<typeof schema>
 export default function Home() {
   const [pdfUrl, setPdfUrl] = useState('');
-  const { register, handleSubmit, formState: { errors } } = useForm({
+  const { register, handleSubmit, formState: { errors, isSubmitting, isLoading } } = useForm({
     resolver: zodResolver(schema)
   });
 
@@ -47,6 +47,9 @@ export default function Home() {
           <input type="text" {...register("description")} placeholder="Descrição" className="p-2 my-1 rounded border" />
           {errors.description && <span className="text-red-500">Este campo é obrigatório</span>}
           <button type="submit" className="p-2 bg-blue-600 rounded">Gerar PDF</button>
+      {isLoading || isSubmitting && (
+        <><h1>carregando ...</h1></>
+      )}
         </div>
       </form>
       </>

@@ -50,18 +50,11 @@ export const pdfTemplate = ({
                 <!-- introdection  -->
                 <div class="w-full min-h-[70px] h-fit pt-1 mb-4 flex justify-between border-b ">
                       <div class="w-[50%] flex items-start h-full flex-col justify-start p-4">
-                          <h1 class=" font-semibold leading-6 text-xl text-red-500">PDF DOCUMENT</h1>
-                          <h3  class="font-bold  leading-6 text-lg text-gray-900 text-start">${firstName} ${""} ${lastName}</h3>
+                          <h1  class="font-bold  leading-6 text-lg text-gray-900 text-start">${firstName} ${""} ${lastName}</h3>
                       </div>
                 </div>
-                <div class="w-full  min-h-[20px] my-2  pt-1 flex justify-start items-start px-4   ">
-                    <h2 class="font-bold  leading-6 text-lg text-gray-900 text-start">Project objectives</h2>
-                </div>
-                <div class="w-full  min-h-[20px] my-2  pt-1 flex justify-start items-start px-4  no-break-inside ">
-                    <h2 class="  font-bold  leading-6 text-lg text-gray-900 text-start">Project Mile stones</h2>
-                </div>
-                <div class="w-full  min-h-[20px] my-2  pt-1 flex justify-start items-start px-4  no-break-inside ">
-                    <h2 class="  font-bold  leading-6 text-lg text-gray-900 text-start">stakeholders :</h2>
+                <div class="w-full  min-h-[20px] my-2  pt-1 flex justify-start items-start px-4">
+                  <p class="text-gray-900">${description}</p>
                 </div>
           </main>
 </body>

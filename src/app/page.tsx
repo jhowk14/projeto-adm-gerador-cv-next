@@ -1,18 +1,26 @@
 'use client'
 import axios from "axios";
 import { useState } from "react";
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from "zod";
 
+const schema = z.object({
+  firstName: z.string().min(3),
+  lastName: z.string().min(3),
+  description: z.string().min(10)
+});
+export type schemaType = z.infer<typeof schema>
 export default function Home() {
   const [pdfUrl, setPdfUrl] = useState('');
+  const { register, handleSubmit, formState: { errors } } = useForm({
+    resolver: zodResolver(schema)
+  });
 
-  const fetchPdf = async () => {
+  async function fetchPdf(data: any){
     try {
-      const response = await axios.post('/api', {
-        firstName: "aa",
-        lastName: "aa",
-        description: "aa"
-      }, {
-        responseType: 'blob' // Define o tipo de resposta como blob
+      const response = await axios.post('/api', data, {
+        responseType: 'blob'
       });
 
       // Criar um URL do objeto Blob retornado
@@ -30,9 +38,17 @@ export default function Home() {
       {
       !pdfUrl && (
       <>
-      <div className="flex justify-center items-center mt-20">
-        <button onClick={fetchPdf} className="p-2 bg-blue-600 rounded">Gerar PDF</button>
-      </div>
+      <form onSubmit={handleSubmit(fetchPdf)}>
+        <div className="flex flex-col justify-center items-center mt-20">
+          <input type="text" {...register("firstName")} placeholder="Primeiro Nome" className="p-2 my-1 rounded border" />
+          {errors.firstName && <span className="text-red-500">Este campo é obrigatório</span>}
+          <input type="text" {...register("lastName")} placeholder="Sobrenome" className="p-2 my-1 rounded border" />
+          {errors.lastName && <span className="text-red-500">Este campo é obrigatório</span>}
+          <input type="text" {...register("description")} placeholder="Descrição" className="p-2 my-1 rounded border" />
+          {errors.description && <span className="text-red-500">Este campo é obrigatório</span>}
+          <button type="submit" className="p-2 bg-blue-600 rounded">Gerar PDF</button>
+        </div>
+      </form>
       </>
       )
       }

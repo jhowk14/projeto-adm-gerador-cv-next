@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <>
       <main className="flex flex-col justify-center items-center bg-gray-700">
-          <div className="flex items-center bg-gray-900 w-full justify-center py-2 shadow">
+          <div className="flex items-center bg-gray-900 w-full justify-center py-4 gap-10 shadow">
             <div className="">
               <Image src='/img/icon.png' width={0} height={0} sizes="100vw" alt="logo" className="w-20 h-20" />
             </div>

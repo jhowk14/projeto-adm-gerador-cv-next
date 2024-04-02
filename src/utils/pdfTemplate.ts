@@ -7,7 +7,7 @@ export const pdfTemplate = ({
   lastName: string;
   description: string;
 }) => {
-  return `
+  return /*html*/`
         <!DOCTYPE html>
         <html lang="en">
         <head>

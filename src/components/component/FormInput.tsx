@@ -1,7 +1,7 @@
 import React from 'react';
 import { Label } from '../ui/label';
 import { Input } from '../ui/input';
-import { schemaType } from '@/app/page';
+import { schemaType } from './form-curriculo';
 
 type FormFieldName = keyof schemaType;
 

@@ -1,11 +1,19 @@
 export const pdfTemplate = ({
-  firstName,
-  lastName,
-  description,
+  nome,
+  telefone,
+  email,
+  sobre,
+  educacao,
+  experiencia,
+  habilidades
 }: {
-  firstName: string;
-  lastName: string;
-  description: string;
+  nome: string;
+  telefone: string;
+  email: string;
+  sobre: string;
+  educacao: { instituicao: string; curso: string; anoTermino: string }[];
+  experiencia: { empresa: string; cargo: string; duracao: string }[];
+  habilidades: string;
 }) => {
   return /*html*/`
         <!DOCTYPE html>
@@ -45,16 +53,48 @@ export const pdfTemplate = ({
           }
         }
             </style>
-            <main class="w-[800px] mx-auto  p-[20px] ">
-            
-                <!-- introdection  -->
+            <main class="w-[800px] mx-auto p-[20px] text-gray-900 ">
+                <!-- introdução  -->
                 <div class="w-full min-h-[70px] h-fit pt-1 mb-4 flex justify-between border-b ">
                       <div class="w-[50%] flex items-start h-full flex-col justify-start p-4">
-                          <h1  class="font-bold  leading-6 text-lg text-gray-900 text-start">${firstName} ${""} ${lastName}</h3>
+                          <h1  class="font-bold  leading-6 text-lg text-gray-900 text-start">${nome}</h1>
                       </div>
                 </div>
                 <div class="w-full  min-h-[20px] my-2  pt-1 flex justify-start items-start px-4">
-                  <p class="text-gray-900">${description}</p>
+                  <p class="text-gray-900">${sobre}</p>
+                </div>
+                <!-- Educação -->
+                <div class="w-full my-2">
+                  <h2 class="font-bold text-lg mb-2">Educação</h2>
+                  ${educacao.map(edu => `
+                    <div class="flex justify-between items-start border-b py-2">
+                      <div>
+                        <p class="font-semibold">${edu.instituicao}</p>
+                        <p>${edu.curso}</p>
+                      </div>
+                      <p>${edu.anoTermino}</p>
+                    </div>
+                  `).join('')}
+                </div>
+
+                <!-- Experiência -->
+                <div class="w-full mb-4">
+                  <h2 class="font-bold text-lg mb-2">Experiência</h2>
+                  ${experiencia.map(exp => `
+                    <div class="flex justify-between items-start border-b py-2">
+                      <div>
+                        <p class="font-semibold">${exp.empresa}</p>
+                        <p>${exp.cargo}</p>
+                      </div>
+                      <p>${exp.duracao}</p>
+                    </div>
+                  `).join('')}
+                </div>
+
+                <!-- Habilidades -->
+                <div class="w-full">
+                  <h2 class="font-bold text-lg mb-2">Habilidades</h2>
+                  <p>${habilidades}</p>
                 </div>
           </main>
 </body>

@@ -46,11 +46,11 @@ export default function Home() {
   return (
     <>
       <main className="flex flex-col items-center">
-        <div className="flex items-center">
-          <div className="mr-4 mt-4">
+        <div className="flex items-center bg-gray-900 w-full justify-center py-2">
+          <div className="mx-2">
             <Image src='/img/icon.png' width={0} height={0} sizes="100vw" alt="logo" className="w-20 h-20" />
           </div>
-          <h1 className="text-3xl font-bold">Gerador de Currículo</h1>
+          <h1 className="text-2xl font-bold text-gray-100">Gerador de Currículo</h1>
         </div>
         <div className="w-full max-w-4xl p-7">
           <Form {...form}>

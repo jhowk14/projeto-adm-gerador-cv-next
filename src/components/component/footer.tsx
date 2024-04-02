@@ -12,11 +12,11 @@ export function Footer(prop: {git: string, youtube: string, twitter: string}) {
           <p className="text-sm">© 2024 TII 4 Senac Catanduva. All rights reserved.</p>
         </div>
         <div className="flex items-center justify-center space-x-4">
-          <Link className="text-gray-400 hover:text-gray-100 transition-colors" href={prop.git}>
+          <Link className="text-gray-400 hover:text-gray-100 transition-colors" href={prop.youtube}>
             <YoutubeIcon className="h-6 w-6" />
             <span className="sr-only">YouTube</span>
           </Link>
-          <Link className="text-gray-400 hover:text-gray-100 transition-colors" href={prop.youtube}>
+          <Link className="text-gray-400 hover:text-gray-100 transition-colors" href={prop.git}>
             <GithubIcon className="h-6 w-6" />
             <span className="sr-only">GitHub</span>
           </Link>

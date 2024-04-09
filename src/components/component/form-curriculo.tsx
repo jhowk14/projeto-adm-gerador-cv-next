@@ -46,55 +46,88 @@ export type schemaType = z.infer<typeof schema>;
 
 export const FormCurriculo = () => {
   const [pdfUrl, setPdfUrl] = useState("");
-  const [numEducacao, setNumEducacao] = useState(0); // Número inicial de campos de educação
-  const [numExperiencia, setNumExperiencia] = useState(0);
-  const form = useForm<schemaType>({
+  const [numEducacao, setNumEducacao] = useState(1); // Start with one education field
+  const [numExperiencia, setNumExperiencia] = useState(1); // Start with one experience field
+
+  const educacao = z.object({
+    instituicao: z.string().min(3),
+    curso: z.string().min(3),
+    anoTermino: z.string().min(4),
+  });
+
+  const experiencia = z.object({
+    empresa: z.string().min(3),
+    cargo: z.string().min(3),
+    duracao: z.string().min(4),
+    atividades: z.string().min(3),
+  });
+
+  const schema = z.object({
+    nome: z.string().min(3),
+    idade: z.string().min(1),
+    estadoCivil: z.string().min(3),
+    endereco: z.string().min(3),
+    celularPessoal: z.string().min(3),
+    celularRecado: z.string().min(3),
+    email: z.string().email(),
+    educacao: z.array(educacao),
+    cursos: z.array(educacao), // Assuming cursos is similar to educacao
+    experiencia: z.array(experiencia),
+    habilidades: z.string().min(3),
+    sobre: z.string().min(3),
+  });
+
+  type SchemaType = z.infer<typeof schema>;
+
+  const form = useForm<SchemaType>({
     resolver: zodResolver(schema),
   });
+
   const {
     handleSubmit,
     formState: { errors, isSubmitting, isLoading },
     register,
   } = form;
 
-  async function fetchPdf(data: schemaType) {
+  const onSubmit = async (data: SchemaType) => {
     try {
-      console.log(data);
-      setPdfUrl("");
-      const response = await axios.post("/api", data, {
-        responseType: "blob",
-      });
-      const pdfBlob = new Blob([response.data], { type: "application/pdf" });
-      const pdfUrl = URL.createObjectURL(pdfBlob);
-      window.location.href = pdfUrl;
-      setPdfUrl(pdfUrl);
+      const pdfData = {
+        ...data,
+      };
+      const pdf = await generatePdf(pdfData);
+      setPdfUrl(pdf);
     } catch (error) {
-      console.error("Erro ao buscar PDF:", error);
+      console.error("Error generating PDF:", error);
     }
-  }
+  };
+
+  const generatePdf = async (data: SchemaType) => {
+    console.log(data)
+    const response = await axios.post("/api", data, {
+      responseType: "blob",
+    });
+    const pdfBlob = new Blob([response.data], { type: "application/pdf" });
+    const pdfUrl = URL.createObjectURL(pdfBlob);
+    window.location.href = pdfUrl;
+    return pdfUrl;
+  };
 
   const addEducacaoField = () => {
-    setNumEducacao((num) => num + 1);
+    setNumEducacao(num => num + 1);
   };
 
   const addExperienciaField = () => {
-    setNumExperiencia((num) => num + 1);
-  };
-  const removeEducacaoField = () => {
-    setNumEducacao((num) => (num > 0 ? num - 1 : 0));
+    setNumExperiencia(num => num + 1);
   };
 
-  const removeExperienciaField = () => {
-    setNumExperiencia((num) => (num > 0 ? num - 1 : 0));
-  };
-
-  console.log(errors);
+  console.log(errors)
 
   return (
     <Form {...form}>
-      <form onSubmit={handleSubmit(fetchPdf)}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <Card className="bg-gray-100">
-          <CardContent className="space-y-4 mt-6">
+        <CardContent className="space-y-4 mt-6">
+          <div className="grid md:grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="name">Nome</Label>
               <Input
@@ -104,43 +137,73 @@ export const FormCurriculo = () => {
               />
             </div>
             <div className="space-y-2">
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="phone">Telefone</Label>
-                  <Input
-                    id="phone"
-                    placeholder="Digite seu telefone"
-                    {...register("telefone")}
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="email">Email</Label>
-                  <Input
-                    id="email"
-                    placeholder="Digite seu email"
-                    type="email"
-                    {...register("email")}
-                  />
-                </div>
-              </div>
+              <Label htmlFor="idade">Idade</Label>
+              <Input
+                id="idade"
+                type="number"
+                placeholder="Digite sua idade"
+                {...register("idade")}
+              />
             </div>
             <div className="space-y-2">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Sobre você</CardTitle>
-                  <CardDescription>Fale um pouco sobre você.</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <Textarea
-                    className="min-h-[100px]"
-                    id="sobre"
-                    placeholder="Fale sobre você"
-                    {...register("sobre")}
-                  />
-                </CardContent>
-              </Card>
+              <Label htmlFor="estadoCivil">Estado Civil</Label>
+              <Input
+                id="estadoCivil"
+                placeholder="Digite seu estado civil"
+                {...register("estadoCivil")}
+              />
             </div>
             <div className="space-y-2">
+              <Label htmlFor="endereco">Endereço</Label>
+              <Input
+                id="endereco"
+                placeholder="Digite seu endereço"
+                {...register("endereco")}
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="celularPessoal">Celular Pessoal</Label>
+              <Input
+                id="celularPessoal"
+                placeholder="Digite seu celular pessoal"
+                {...register("celularPessoal")}
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="celularRecado">Celular Recado (Nome)</Label>
+              <Input
+                id="celularRecado"
+                placeholder="Digite o celular para recado"
+                {...register("celularRecado")}
+              />
+            </div>
+          </div>
+  <div className="space-y-2">
+    <Label htmlFor="email">E-mail</Label>
+    <Input
+      id="email"
+      type="email"
+      placeholder="Digite seu e-mail"
+      {...register("email")}
+    />
+  </div>
+  <div className="space-y-2">
+    <Card>
+      <CardHeader>
+        <CardTitle>Sobre você</CardTitle>
+        <CardDescription>Fale um pouco sobre você.</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <Textarea
+          className="min-h-[100px]"
+          id="sobre"
+          placeholder="Fale sobre você"
+          {...register("sobre")}
+        />
+      </CardContent>
+    </Card>
+  </div>
+  <div className="space-y-2">
               <Card>
                 <CardHeader>
                   <CardTitle>Educação</CardTitle>
@@ -172,47 +235,48 @@ export const FormCurriculo = () => {
                   </div>
                 </CardContent>
               </Card>
-              {[...Array(numEducacao)].map((_, index) => (
-                <div key={index} className="space-y-2">
-                  <Card>
-                    <CardContent>
-                      <div className="space-y-2 mt-3">
-                        <Label htmlFor={`instituicao${index}`}>
-                          Instituição
-                        </Label>
-                        <Input
-                          id={`instituicao${index}`}
-                          placeholder="Digite o nome da sua instituição de ensino"
-                          {...register(`educacao.${index + 1}.instituicao`)}
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="degree">Curso</Label>
-                        <Input
-                          id="degree"
-                          placeholder="Digite o curso"
-                          {...register(`educacao.${index + 1}.curso`)}
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="graduation-year">Ano de Término</Label>
-                        <Input
-                          id="graduation-year"
-                          placeholder="Digite o ano de término"
-                          {...register(`educacao.${index + 1}.anoTermino`)}
-                        />
-                      </div>
-                    </CardContent>
-                  </Card>
-                </div>
-              ))}
-              <div className="flex justify-center gap-5">
-                <ButtonAdd onClick={addEducacaoField}></ButtonAdd>
-                {numEducacao > 0 && (
-                  <ButtonRemove onClick={removeEducacaoField}></ButtonRemove>
-                )}
-              </div>
+            <div className="flex justify-center gap-5">
+              <ButtonAdd onClick={addEducacaoField}></ButtonAdd>
+              <ButtonRemove onClick={()=>{}}></ButtonRemove>
             </div>
+            </div>
+            <div className="space-y-2">
+            <Card>
+              <CardHeader>
+                <CardTitle>Curso</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-2">
+                  <Label htmlFor="curso">Curso</Label>
+                  <Input
+                    id="curso"
+                    placeholder="Digite o nome do curso"
+                    {...register(`cursos.0.curso`)}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="instituicaoCurso">Instituição</Label>
+                  <Input
+                    id="instituicaoCurso"
+                    placeholder="Digite o nome da instituição"
+                    {...register(`cursos.0.instituicao`)}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="anoTerminoCurso">Ano de Término</Label>
+                  <Input
+                    id="anoTerminoCurso"
+                    placeholder="Digite o ano de término"
+                    {...register(`cursos.0.anoTermino`)}
+                  />
+                </div>
+              </CardContent>
+            </Card>
+            <div className="flex justify-center gap-5">
+            <ButtonAdd onClick={addExperienciaField}></ButtonAdd>
+            <ButtonRemove onClick={()=>{}}></ButtonRemove>
+          </div>
+          </div>
             <div className="space-y-2">
               <Card>
                 <CardHeader>
@@ -243,71 +307,45 @@ export const FormCurriculo = () => {
                       {...register("experiencia.0.duracao")}
                     />
                   </div>
-                </CardContent>
-              </Card>
-              {[...Array(numExperiencia)].map((_, index) => (
-                <div key={index} className="space-y-2">
-                  <Card>
-                    <CardContent>
-                      <div className="space-y-2 mt-3">
-                        <Label htmlFor={`empresa${index}`}>Empresa</Label>
-                        <Input
-                          id={`empresa${index}`}
-                          placeholder="Digite o nome da sua empresa"
-                          {...register(`experiencia.${index + 1}.empresa`)}
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="job-title">Cargo</Label>
-                        <Input
-                          id="job-title"
-                          placeholder="Digite seu cargo"
-                          {...register(`experiencia.${index + 1}.cargo`)}
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="duration">Duração</Label>
-                        <Input
-                          id="duration"
-                          placeholder="Digite a duração"
-                          {...register(`experiencia.${index + 1}.duracao`)}
-                        />
-                      </div>
-                    </CardContent>
-                  </Card>
-                </div>
-              ))}
-              <div className="flex justify-center gap-5">
-                <ButtonAdd onClick={addExperienciaField}></ButtonAdd>
-                {numExperiencia > 0 && (
-                  <ButtonRemove onClick={removeExperienciaField}></ButtonRemove>
-                )}
-              </div>
-            </div>
-            <div className="space-y-2">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Habilidades</CardTitle>
-                  <CardDescription>
-                    Digite suas habilidades separadas por vírgulas.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
+                  <div className="space-y-2">
+                  <Label htmlFor={`atividades`}>Atividades</Label>
                   <Textarea
-                    className="min-h-[100px]"
-                    id="skills"
-                    placeholder="Digite suas habilidades"
-                    {...register("habilidades")}
+                    id={`atividades`}
+                    placeholder="Descreva suas atividades"
+                    {...register(`experiencia.0.atividades`)}
                   />
+                </div>
                 </CardContent>
               </Card>
-            </div>
-          </CardContent>
-          <CardFooter>
-            <Button type="submit" disabled={isSubmitting || isLoading}>
-              {isSubmitting || isLoading ? "Carregando..." : "Gerar PDF"}
-            </Button>
-          </CardFooter>
+  <div className="flex justify-center gap-5">
+    <ButtonAdd onClick={addExperienciaField}></ButtonAdd>
+    <ButtonRemove onClick={()=>{}}></ButtonRemove>
+  </div>
+  </div>
+  <div className="space-y-2">
+    <Card>
+      <CardHeader>
+        <CardTitle>Habilidades</CardTitle>
+        <CardDescription>
+          Digite suas habilidades separadas por vírgulas.
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <Textarea
+          className="min-h-[100px]"
+          id="skills"
+          placeholder="Digite suas habilidades"
+          {...register("habilidades")}
+        />
+      </CardContent>
+    </Card>
+  </div>
+</CardContent>
+<CardFooter>
+  <Button type="submit" disabled={isSubmitting || isLoading}>
+    {isSubmitting || isLoading ? "Carregando..." : "Gerar PDF"}
+  </Button>
+</CardFooter>
         </Card>
       </form>
     </Form>

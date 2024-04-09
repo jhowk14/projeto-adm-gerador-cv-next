@@ -3,11 +3,11 @@ import { pdfTemplate } from "@/utils/pdfTemplate";
 
 export async function POST(req: Request) {
   const {
-    educacao, email, experiencia, habilidades, nome, sobre, telefone
+    celularPessoal, email, celularRecado, habilidades, nome, cursos, educacao, endereco, estadoCivil, experiencia, idade, sobre
   } = await req.json();
 
   const myPdf = await generatePdf(
-    pdfTemplate({ educacao, email, experiencia, habilidades, nome, sobre, telefone })
+    pdfTemplate({ celularPessoal, email, celularRecado, habilidades, nome, cursos, educacao, endereco, estadoCivil, experiencia, idade, sobre })
   );
 
   // Create a Blob from the ArrayBuffer

@@ -1,9 +1,9 @@
 import React from 'react';
 import { Label } from '../ui/label';
 import { Input } from '../ui/input';
-import { schemaType } from './form-curriculo';
+import { SchemaType } from './form-curriculo';
 
-type FormFieldName = keyof schemaType;
+export type FormFieldName = keyof SchemaType;
 
 interface FormInputProps {
   label: string;

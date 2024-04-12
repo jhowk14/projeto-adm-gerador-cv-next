@@ -59,24 +59,42 @@ export const pdfTemplate = ({
           <div class="my-2">
               <h2 class="text-lg font-bold mb-2">Formação Acadêmica</h2>
               <ul class="list-disc pl-6 mb-2">
-                  ${educacao.map(edu => `<li>${edu.instituicao} - ${edu.curso} (${edu.anoTermino})</li>`).join('')}
+                  ${educacao.map(edu => /*html*/`
+                  <li>
+                  <span>Instituição: </span>${edu.instituicao}
+                  <br/>
+                  <span>Curso: </span>${edu.curso}
+                  <br/>
+                  <span>Ano de término: </span>${edu.anoTermino}
+                  </li>`).join('')}
               </ul>
           </div>
           <hr class="bg-gray-800"/>
           <div class="my-2">
               <h2 class="text-lg font-bold mb-2">Cursos</h2>
               <ul class="list-disc pl-6 mb-2">
-                ${cursos.map(curso => `<li>${curso.instituicao} - ${curso.curso} (${curso.anoTermino})</li>`).join('')}
+                ${cursos.map(curso => /*html*/`<li>
+                <span>Instituição: </span>${curso.instituicao}
+                <br/>
+                <span>Curso: </span>${curso.curso}
+                <br/>
+                <span>Ano de término: </span>${curso.anoTermino}
+                </li>`).join('')}
               </ul>
           </div>
           <hr class="bg-gray-800"/>
           <div class="my-2">
               <h2 class="text-lg font-bold mb-2">Experiência Profissional</h2>
               <ul class="mb-2">
-                  ${experiencia.map(exp => `
-                      <li class="mb-2">
-                          <span class="font-bold">${exp.empresa}</span> - ${exp.cargo} (${exp.duracao})<br>
-                          ${exp.atividades}
+                  ${experiencia.map(exp => /*html*/`
+                      <li>
+                          <span>Empresa: </span> ${exp.empresa}
+                          <br/>
+                          <span>Cargo: </span>${exp.cargo} 
+                          <br/>
+                          <span>Duração: </span>${exp.duracao}
+                          <br/>
+                          <span>Atividades: </span>${exp.atividades}
                       </li>`).join('')}
               </ul>
           </div>

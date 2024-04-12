@@ -18,66 +18,44 @@ import axios from "axios";
 import { Form } from "../ui/form";
 import { ButtonAdd } from "./buttonAdd";
 import { ButtonRemove } from "./buttonRemove";
+import { SelectEstadocivil } from './select-estadocivil';
 
 const educacao = z.object({
-  instituicao: z.string().min(3),
-  curso: z.string().min(3),
-  anoTermino: z.string().min(4),
+  instituicao: z.string().optional(),
+  curso: z.string().optional(),
+  anoTermino: z.string().optional(),
 });
+
 const experiencia = z.object({
-  empresa: z.string().min(3),
-  cargo: z.string().min(3),
-  duracao: z.string().min(4),
+  empresa: z.string().optional(),
+  cargo: z.string().optional(),
+  duracao: z.string().optional(),
+  atividades: z.string().optional(),
 });
+
 
 const schema = z.object({
-  nome: z.string().min(3, { message: "Preencha com um nome válido" }),
-  telefone: z.string().min(3, { message: "Preencha com um sobrenome válido" }),
-  email: z.string().min(10, { message: "Preencha com um e-mail válido" }),
-  sobre: z.string().min(10, { message: "Preencha com uma descrição válida" }),
-  educacao: z.array(educacao),
-  experiencia: z.array(experiencia),
-  habilidades: z
-    .string()
-    .min(10, { message: "Preencha com uma descrição válida" }),
+  nome: z.string().optional(),
+  idade: z.string().optional(),
+  endereco: z.string().optional(),
+  estadoCivil: z.string().optional(),
+  celularPessoal: z.string().optional(),
+  celularRecado: z.string().optional(),
+  email: z.string().email().optional(),
+  educacao: z.array(educacao).optional(),
+  cursos: z.array(educacao).optional(),
+  experiencia: z.array(experiencia).optional(),
+  habilidades: z.string().optional(),
+  sobre: z.string().optional(),
 });
 
-export type schemaType = z.infer<typeof schema>;
+export type SchemaType = z.infer<typeof schema>;
 
 export const FormCurriculo = () => {
   const [pdfUrl, setPdfUrl] = useState("");
   const [numEducacao, setNumEducacao] = useState(1); // Start with one education field
   const [numExperiencia, setNumExperiencia] = useState(1); // Start with one experience field
-
-  const educacao = z.object({
-    instituicao: z.string().min(3),
-    curso: z.string().min(3),
-    anoTermino: z.string().min(4),
-  });
-
-  const experiencia = z.object({
-    empresa: z.string().min(3),
-    cargo: z.string().min(3),
-    duracao: z.string().min(4),
-    atividades: z.string().min(3),
-  });
-
-  const schema = z.object({
-    nome: z.string().min(3),
-    idade: z.string().min(1),
-    estadoCivil: z.string().min(3),
-    endereco: z.string().min(3),
-    celularPessoal: z.string().min(3),
-    celularRecado: z.string().min(3),
-    email: z.string().email(),
-    educacao: z.array(educacao),
-    cursos: z.array(educacao), // Assuming cursos is similar to educacao
-    experiencia: z.array(experiencia),
-    habilidades: z.string().min(3),
-    sobre: z.string().min(3),
-  });
-
-  type SchemaType = z.infer<typeof schema>;
+  
 
   const form = useForm<SchemaType>({
     resolver: zodResolver(schema),
@@ -147,11 +125,7 @@ export const FormCurriculo = () => {
             </div>
             <div className="space-y-2">
               <Label htmlFor="estadoCivil">Estado Civil</Label>
-              <Input
-                id="estadoCivil"
-                placeholder="Digite seu estado civil"
-                {...register("estadoCivil")}
-              />
+              <SelectEstadocivil register={form}/>
             </div>
             <div className="space-y-2">
               <Label htmlFor="endereco">Endereço</Label>

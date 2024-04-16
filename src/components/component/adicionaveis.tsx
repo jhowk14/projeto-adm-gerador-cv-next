@@ -196,7 +196,7 @@ const Adicionaveis = ({ onChange }: { onChange: (a: any) => void }) => {
                   className="border rounded-md px-2 py-1 mr-2"
                 />
                 <div className="grid sm:grid-cols-2 gap-4">
-                  <div className="space-x-2 flex items-center">
+                  <div className="space-y-2">
                     <Label htmlFor="from">De</Label>
                     <Input
                       value={experiencia.from || ""}
@@ -210,19 +210,20 @@ const Adicionaveis = ({ onChange }: { onChange: (a: any) => void }) => {
                       type="month"
                     />
                   </div>
-                  <div className="flex items-center space-x-2">
+                  <div className="space-y-2">
                     <Label htmlFor="to">Até</Label>
                     <Input
-                      value={experiencia.to || ""}
-                      onChange={(e) => {
-                        const novasExperiencias = [...experiencias];
-                        novasExperiencias[index].to = e.target.value;
-                        setExperiencias(novasExperiencias);
-                      }}
-                      id="to"
-                      placeholder="Seu cargo"
-                      type="month"
-                    />
+                        value={experiencia.to || ""}
+                        onChange={(e) => {
+                          const novasExperiencias = [...experiencias];
+                          novasExperiencias[index].to = e.target.value;
+                          setExperiencias(novasExperiencias);
+                        }}
+                        id="to"
+                        placeholder="Seu cargo"
+                        type="month"
+                        disabled={experiencia.trabalhoAtual}
+                      />
                   </div>
                 </div>
                 <div className="flex items-center space-x-2">

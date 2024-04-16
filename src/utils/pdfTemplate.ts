@@ -26,8 +26,10 @@ export const pdfTemplate = ({
   experiencia?: {
     empresa?: string;
     cargo?: string;
-    duracao?: string;
     atividades?: string;
+    from?: string,
+    to?: string,
+    trabalhoAtual?: boolean
   }[];
   habilidades?: string;
   sobre?: string;
@@ -143,7 +145,6 @@ export const pdfTemplate = ({
                         if (
                           exp.empresa ||
                           exp.cargo ||
-                          exp.duracao ||
                           exp.atividades
                         ) {
                           return /*html*/ `
@@ -159,8 +160,13 @@ export const pdfTemplate = ({
                             : ""
                         }
                         ${
-                          exp.duracao
-                            ? `<span>Duração: </span>${exp.duracao}<br/>`
+                          exp.from
+                            ? `<span>Duração: </span>${exp.from} ${exp.to && !exp.trabalhoAtual ?`até ${exp.to}`: ''}<br/>`
+                            : ""
+                        }
+                        ${
+                          exp.trabalhoAtual
+                            ? `<span>Trabalho Atual: </span>Sim<br/>`
                             : ""
                         }
                         ${

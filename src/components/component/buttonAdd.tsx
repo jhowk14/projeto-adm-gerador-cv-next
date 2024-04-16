@@ -12,7 +12,7 @@ export function ButtonAdd({ onClick }: ButtonAddProps) {
   return (
     <div className="flex items-center space-x-4">
       <Button onClick={onClick} type="button">
-        <PlusIcon className="h-4 w-4" />
+        <PlusIcon className="h-3 w-3" />
       </Button>
     </div>
   );

@@ -1,35 +1,77 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Regador de Currículos: README
 
-## Getting Started
+---
 
-First, run the development server:
+## Descrição do Projeto
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+O Regador de Currículos é um projeto de Produto Mínimo Viável (PMV) desenvolvido com o framework Next.js. O objetivo é criar uma aplicação web onde os usuários podem preencher um formulário com informações de seus currículos e gerar um PDF personalizado a partir desses dados. A geração do PDF é feita através de um template HTML utilizando a rota API do Next.js.
+
+## Funcionalidades
+
+- **Formulário de Currículo**: Os usuários podem preencher um formulário com informações pessoais, acadêmicas e profissionais relevantes para seus currículos.
+  
+- **Geração de PDF**: Após preencher o formulário, os usuários têm a opção de gerar um PDF com base nas informações fornecidas. O PDF é gerado a partir de um template HTML.
+
+## Estrutura do Projeto
+
 ```
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+projeto/
+│
+├── pages/
+│   ├── api/
+│   │   └── gerar-pdf.js
+│   │
+│   ├── index.tsx
+│   └── _app.tsx
+│
+├── components/
+│   ├── Formulario.tsx
+│   └── ...
+│
+├── templates/
+│   └── curriculo-template.html
+│
+├── public/
+│   └── ...
+│
+└── README.md
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **app/**: Contém as páginas da aplicação.
+  - **page.tsx**: Página principal com o formulário de currículo.
+  - **api/route.ts**: Rota da API do Next.js responsável por gerar o PDF a partir do template HTML.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- **components/**: Componentes reutilizáveis da aplicação, como o formulário de currículo.
+-  **utils/**: Arquivos para utilidades do projeto.
+- **public/**: Diretório público para arquivos estáticos, como imagens e estilos.
 
-## Learn More
+## Como Executar o Projeto
 
-To learn more about Next.js, take a look at the following resources:
+1. Clone o repositório para sua máquina local:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+   ```bash
+   git clone https://github.com/seu-usuario/projeto.git
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+2. Instale as dependências:
 
-## Deploy on Vercel
+   ```bash
+   cd projeto
+   npm install
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+3. Execute o projeto:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+   ```bash
+   npm run dev
+   ```
+
+   O projeto estará disponível em `http://localhost:3000`.
+
+## Contribuindo
+
+Se deseja contribuir com melhorias ou correções, sinta-se à vontade para abrir uma issue ou enviar um pull request.
+
+---
+
+Este é um projeto de Produto Mínimo Viável (PMV), portanto, ainda está em fase inicial de desenvolvimento. Sugestões e feedbacks são bem-vindos!

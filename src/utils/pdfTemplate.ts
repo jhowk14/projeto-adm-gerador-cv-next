@@ -8,6 +8,7 @@ export const pdfTemplate = ({
   email = "",
   educacao = [],
   cursos = [],
+  CNH = "",
   experiencia = [],
   habilidades = "",
   sobre = "",
@@ -16,6 +17,7 @@ export const pdfTemplate = ({
   idade?: number;
   estadoCivil?: string;
   endereco?: string;
+  CNH?: string;
   celularPessoal?: string;
   celularRecado?: string;
   email?: string;
@@ -59,6 +61,7 @@ export const pdfTemplate = ({
                 <p><span class="font-bold">Celular Pessoal:</span> ${celularPessoal}</p>
                 <p><span class="font-bold">Celular Recado (Nome):</span> ${celularRecado}</p>
                 <p><span class="font-bold">E-mail:</span> ${email}</p>
+                <p><span class="font-bold">CNH:</span> ${CNH}</p>
             </div>
             <hr class="bg-gray-800"/>
             <div class="my-2">

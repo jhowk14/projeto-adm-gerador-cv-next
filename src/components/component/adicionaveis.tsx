@@ -5,18 +5,22 @@ import { ButtonRemove } from "./buttonRemove";
 import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
+import { Label } from "../ui/label";
+import { Checkbox } from "../ui/checkbox";
 
-const educacaoSchema = z.object({
+export const educacaoSchema = z.object({
   instituicao: z.string().optional(),
   curso: z.string().optional(),
   anoTermino: z.string().optional(),
 });
 
-const experienciaSchema = z.object({
+export const experienciaSchema = z.object({
   empresa: z.string().optional(),
   cargo: z.string().optional(),
-  duracao: z.string().optional(),
   atividades: z.string().optional(),
+  from: z.string().optional(),
+  to: z.string().optional(),
+  trabalhoAtual: z.boolean().optional()
 });
 
 const Adicionaveis = ({ onChange }: { onChange: (a: any) => void }) => {
@@ -27,6 +31,7 @@ const Adicionaveis = ({ onChange }: { onChange: (a: any) => void }) => {
   ]);
 
   const handleInputChange = () => {
+    console.log(experiencias);
     onChange({ educacao: formacoes, experiencia: experiencias, cursos });
   };
 
@@ -62,162 +67,198 @@ const Adicionaveis = ({ onChange }: { onChange: (a: any) => void }) => {
     <>
       <Card onChange={handleInputChange}>
         <CardHeader>
-            <CardTitle>Formações</CardTitle>
+          <CardTitle>Formações</CardTitle>
         </CardHeader>
         <CardContent>
-        {formacoes.map((formacao, index) => (
-          <div key={index} className="flex items-center space-x-2">
-            <div className="w-full space-y-2 mb-5">
-              <Input
-                type="text"
-                value={formacao.instituicao || ""}
-                onChange={(e) => {
-                  const novasFormacoes = [...formacoes];
-                  novasFormacoes[index].instituicao = e.target.value;
-                  setFormacoes(novasFormacoes);
-                }}
-                placeholder="Instituição"
-                className="border rounded-md px-2 py-1 mr-2"
-              />
-              <Input
-                type="text"
-                value={formacao.curso || ""}
-                onChange={(e) => {
-                  const novasFormacoes = [...formacoes];
-                  novasFormacoes[index].curso = e.target.value;
-                  setFormacoes(novasFormacoes);
-                }}
-                placeholder="Curso"
-                className="border rounded-md px-2 py-1 mr-2"
-              />
-              <Input
-                type="text"
-                value={formacao.anoTermino || ""}
-                onChange={(e) => {
-                  const novasFormacoes = [...formacoes];
-                  novasFormacoes[index].anoTermino = e.target.value;
-                  setFormacoes(novasFormacoes);
-                }}
-                placeholder="Ano de término"
-                className="border rounded-md px-2 py-1 mr-2"
-              />
+          {formacoes.map((formacao, index) => (
+            <div key={index} className="flex items-center space-x-2">
+              <div className="w-full space-y-2 mb-5">
+                <Input
+                  type="text"
+                  value={formacao.instituicao || ""}
+                  onChange={(e) => {
+                    const novasFormacoes = [...formacoes];
+                    novasFormacoes[index].instituicao = e.target.value;
+                    setFormacoes(novasFormacoes);
+                  }}
+                  placeholder="Instituição"
+                  className="border rounded-md px-2 py-1 mr-2"
+                />
+                <Input
+                  type="text"
+                  value={formacao.curso || ""}
+                  onChange={(e) => {
+                    const novasFormacoes = [...formacoes];
+                    novasFormacoes[index].curso = e.target.value;
+                    setFormacoes(novasFormacoes);
+                  }}
+                  placeholder="Curso"
+                  className="border rounded-md px-2 py-1 mr-2"
+                />
+                <Input
+                  type="text"
+                  value={formacao.anoTermino || ""}
+                  onChange={(e) => {
+                    const novasFormacoes = [...formacoes];
+                    novasFormacoes[index].anoTermino = e.target.value;
+                    setFormacoes(novasFormacoes);
+                  }}
+                  placeholder="Ano de término"
+                  className="border rounded-md px-2 py-1 mr-2"
+                />
+              </div>
+              <ButtonRemove onClick={() => removerFormacao(index)} />
             </div>
-            <ButtonRemove onClick={() => removerFormacao(index)} />
+          ))}
+          <div className="flex justify-center">
+            <ButtonAdd onClick={adicionarFormacao} />
           </div>
-        ))}
-        <div className="flex justify-center">
-          <ButtonAdd onClick={adicionarFormacao} />
-        </div>
         </CardContent>
       </Card>
       <Card onChange={handleInputChange}>
-      <CardHeader>
-            <CardTitle>Cursos</CardTitle>
+        <CardHeader>
+          <CardTitle>Cursos</CardTitle>
         </CardHeader>
         <CardContent>
-        {cursos.map((formacao, index) => (
-          <div key={index} className="flex items-center space-x-2">
-            <div className="w-full space-y-2 mb-5">
-              <Input
-                type="text"
-                value={formacao.instituicao || ""}
-                onChange={(e) => {
-                  const novasFormacoes = [...cursos];
-                  novasFormacoes[index].instituicao = e.target.value;
-                  setCursos(novasFormacoes);
-                }}
-                placeholder="Instituição"
-                className="border rounded-md px-2 py-1 mr-2"
-              />
-              <Input
-                type="text"
-                value={formacao.curso || ""}
-                onChange={(e) => {
-                  const novasFormacoes = [...cursos];
-                  novasFormacoes[index].curso = e.target.value;
-                  setCursos(novasFormacoes);
-                }}
-                placeholder="Curso"
-                className="border rounded-md px-2 py-1 mr-2"
-              />
-              <Input
-                type="text"
-                value={formacao.anoTermino || ""}
-                onChange={(e) => {
-                  const novasFormacoes = [...cursos];
-                  novasFormacoes[index].anoTermino = e.target.value;
-                  setCursos(novasFormacoes);
-                }}
-                placeholder="Ano de término"
-                className="border rounded-md px-2 py-1 mr-2"
-              />
+          {cursos.map((formacao, index) => (
+            <div key={index} className="flex items-center space-x-2">
+              <div className="w-full space-y-2 mb-5">
+                <Input
+                  type="text"
+                  value={formacao.instituicao || ""}
+                  onChange={(e) => {
+                    const novasFormacoes = [...cursos];
+                    novasFormacoes[index].instituicao = e.target.value;
+                    setCursos(novasFormacoes);
+                  }}
+                  placeholder="Instituição"
+                  className="border rounded-md px-2 py-1 mr-2"
+                />
+                <Input
+                  type="text"
+                  value={formacao.curso || ""}
+                  onChange={(e) => {
+                    const novasFormacoes = [...cursos];
+                    novasFormacoes[index].curso = e.target.value;
+                    setCursos(novasFormacoes);
+                  }}
+                  placeholder="Curso"
+                  className="border rounded-md px-2 py-1 mr-2"
+                />
+                <Input
+                  type="text"
+                  value={formacao.anoTermino || ""}
+                  onChange={(e) => {
+                    const novasFormacoes = [...cursos];
+                    novasFormacoes[index].anoTermino = e.target.value;
+                    setCursos(novasFormacoes);
+                  }}
+                  placeholder="Ano de término"
+                  className="border rounded-md px-2 py-1 mr-2"
+                />
+              </div>
+              <ButtonRemove onClick={() => removerCursos(index)} />
             </div>
-            <ButtonRemove onClick={() => removerCursos(index)} />
+          ))}
+          <div className="flex justify-center">
+            <ButtonAdd onClick={adicionarCursos} />
           </div>
-        ))}
-        <div className="flex justify-center">
-          <ButtonAdd onClick={adicionarCursos} />
-        </div>
         </CardContent>
       </Card>
       <Card onChange={handleInputChange}>
-      <CardHeader>
-            <CardTitle>Experiências</CardTitle>
+        <CardHeader>
+          <CardTitle>Experiências</CardTitle>
         </CardHeader>
         <CardContent>
-        {experiencias.map((experiencia, index) => (
-          <div key={index} className="flex items-center space-x-2">
-            <div className="w-full space-y-2 mb-5">
-              <Input
-                type="text"
-                value={experiencia.empresa || ""}
-                onChange={(e) => {
-                  const novasExperiencias = [...experiencias];
-                  novasExperiencias[index].empresa = e.target.value;
-                  setExperiencias(novasExperiencias);
-                }}
-                placeholder="Empresa"
-                className="border rounded-md px-2 py-1 mr-2"
-              />
-              <Input
-                type="text"
-                value={experiencia.cargo || ""}
-                onChange={(e) => {
-                  const novasExperiencias = [...experiencias];
-                  novasExperiencias[index].cargo = e.target.value;
-                  setExperiencias(novasExperiencias);
-                }}
-                placeholder="Cargo"
-                className="border rounded-md px-2 py-1 mr-2"
-              />
-              <Input
-                type="text"
-                value={experiencia.duracao || ""}
-                onChange={(e) => {
-                  const novasExperiencias = [...experiencias];
-                  novasExperiencias[index].duracao = e.target.value;
-                  setExperiencias(novasExperiencias);
-                }}
-                placeholder="Duração"
-                className="border rounded-md px-2 py-1 mr-2"
-              />
-              <Textarea
-                value={experiencia.atividades || ""}
-                onChange={(e) => {
-                  const novasExperiencias = [...experiencias];
-                  novasExperiencias[index].atividades = e.target.value;
-                  setExperiencias(novasExperiencias);
-                }}
-                placeholder="Atividades"
-                className="border rounded-md px-2 py-1 mr-2"
-              />
+          {experiencias.map((experiencia, index) => (
+            <div key={index} className="flex items-center space-x-2">
+              <div className="w-full space-y-2 mb-5">
+                <Input
+                  type="text"
+                  value={experiencia.empresa || ""}
+                  onChange={(e) => {
+                    const novasExperiencias = [...experiencias];
+                    novasExperiencias[index].empresa = e.target.value;
+                    setExperiencias(novasExperiencias);
+                  }}
+                  placeholder="Empresa"
+                  className="border rounded-md px-2 py-1 mr-2"
+                />
+                <Input
+                  type="text"
+                  value={experiencia.cargo || ""}
+                  onChange={(e) => {
+                    const novasExperiencias = [...experiencias];
+                    novasExperiencias[index].cargo = e.target.value;
+                    setExperiencias(novasExperiencias);
+                  }}
+                  placeholder="Cargo"
+                  className="border rounded-md px-2 py-1 mr-2"
+                />
+                <div className="grid sm:grid-cols-2 gap-4">
+                  <div className="space-x-2 flex items-center">
+                    <Label htmlFor="from">De</Label>
+                    <Input
+                      value={experiencia.from || ""}
+                      onChange={(e) => {
+                        const novasExperiencias = [...experiencias];
+                        novasExperiencias[index].from = e.target.value;
+                        setExperiencias(novasExperiencias);
+                      }}
+                      id="from"
+                      placeholder="Seu cargo"
+                      type="month"
+                    />
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <Label htmlFor="to">Até</Label>
+                    <Input
+                      value={experiencia.to || ""}
+                      onChange={(e) => {
+                        const novasExperiencias = [...experiencias];
+                        novasExperiencias[index].to = e.target.value;
+                        setExperiencias(novasExperiencias);
+                      }}
+                      id="to"
+                      placeholder="Seu cargo"
+                      type="month"
+                    />
+                  </div>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Checkbox
+                    checked={experiencia.trabalhoAtual || false}
+                    onCheckedChange={(value) => {
+                      const novasExperiencias = [...experiencias];
+                      //@ts-ignore
+                      novasExperiencias[index].trabalhoAtual = value.valueOf();
+                      setExperiencias(novasExperiencias);
+                    }}
+                  />
+                  <label
+                    htmlFor={`trabalho-atual-${index}`}
+                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  >
+                    Trabalho Atual
+                  </label>
+                </div>
+                <Textarea
+                  value={experiencia.atividades || ""}
+                  onChange={(e) => {
+                    const novasExperiencias = [...experiencias];
+                    novasExperiencias[index].atividades = e.target.value;
+                    setExperiencias(novasExperiencias);
+                  }}
+                  placeholder="Atividades"
+                  className="border rounded-md px-2 py-1 mr-2"
+                />
+              </div>
+              <ButtonRemove onClick={() => removerExperiencia(index)} />
             </div>
-            <ButtonRemove onClick={() => removerExperiencia(index)} />
+          ))}
+          <div className="flex justify-center">
+            <ButtonAdd onClick={adicionarExperiencia} />
           </div>
-        ))}
-        <div className="flex justify-center">
-          <ButtonAdd onClick={adicionarExperiencia} />
-        </div>
         </CardContent>
       </Card>
     </>

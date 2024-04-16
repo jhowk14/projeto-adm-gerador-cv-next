@@ -14,6 +14,7 @@ export async function POST(req: Request) {
     estadoCivil,
     experiencia,
     idade,
+    CNH,
     sobre,
   } = await req.json();
   const myPdf = await generatePdf(
@@ -23,6 +24,7 @@ export async function POST(req: Request) {
       celularRecado,
       habilidades,
       nome,
+      CNH,
       cursos,
       educacao,
       endereco,

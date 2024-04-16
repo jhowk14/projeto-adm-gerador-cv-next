@@ -15,30 +15,17 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { Form } from "../ui/form";
-import { ButtonAdd } from "./buttonAdd";
-import { ButtonRemove } from "./buttonRemove";
 import { SelectEstadocivil } from "./select-estadocivil";
 import { useState } from "react";
-import Adicionaveis from "./adicionaveis";
-
-const educacao = z.object({
-  instituicao: z.string().optional(),
-  curso: z.string().optional(),
-  anoTermino: z.string().optional(),
-});
-
-const experiencia = z.object({
-  empresa: z.string().optional(),
-  cargo: z.string().optional(),
-  duracao: z.string().optional(),
-  atividades: z.string().optional(),
-});
+import Adicionaveis, { educacaoSchema, experienciaSchema } from "./adicionaveis";
+import { SelectCnh } from "./select-cnh";
 
 const schema = z.object({
   nome: z.string().optional(),
   idade: z.string().optional(),
   endereco: z.string().optional(),
   estadoCivil: z.string().optional(),
+  CNH: z.string().optional(),
   celularPessoal: z.string().optional(),
   celularRecado: z.string().optional(),
   email: z.string().email().optional(),
@@ -50,9 +37,9 @@ export type SchemaType = z.infer<typeof schema>;
 
 export const FormCurriculo = () => {
   const [adicionaveis, setAdicionaveis] = useState({
-    educacao: [educacao.parse({})],
-    experiencia: [experiencia.parse({})],
-    cursos: [educacao.parse({})],
+    educacao: [educacaoSchema.parse({})],
+    experiencia: [experienciaSchema.parse({})],
+    cursos: [educacaoSchema.parse({})],
   });
 
   const handleFormularioChange = (data: typeof adicionaveis) => {
@@ -74,7 +61,6 @@ export const FormCurriculo = () => {
     try {
       const pdfData = {
         ...data,
-        experiencia,
       };
       const pdf = await generatePdf({ ...pdfData, ...adicionaveis });
     } catch (error) {
@@ -143,27 +129,31 @@ export const FormCurriculo = () => {
                   {...register("celularRecado")}
                 />
               </div>
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="email">E-mail</Label>
-              <Input
-                id="email"
-                type="email"
-                placeholder="Digite seu e-mail"
-                {...register("email")}
-              />
+              <div className="space-y-2">
+                <Label htmlFor="email">E-mail</Label>
+                <Input
+                  id="email"
+                  type="email"
+                  placeholder="Digite seu e-mail"
+                  {...register("email")}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="CNH">Cateira De Motorista</Label>
+                <SelectCnh register={form} />
+              </div>
             </div>
             <div className="space-y-2">
               <Card>
                 <CardHeader>
-                  <CardTitle>Sobre você</CardTitle>
+                  <CardTitle>Objetivo</CardTitle>
                   <CardDescription>Fale um pouco sobre você.</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <Textarea
                     className="min-h-[100px]"
                     id="sobre"
-                    placeholder="Fale sobre você"
+                    placeholder="Objetivo..."
                     {...register("sobre")}
                   />
                 </CardContent>

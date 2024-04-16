@@ -6,12 +6,12 @@ export type FormFieldName = keyof SchemaType;
 interface FormInputProps {
   register: any;
 }
-export function SelectEstadocivil({register}: FormInputProps) {
+export function SelectCnh({register}: FormInputProps) {
   return (
   <>
     <FormField
       control={register.control}
-      name="estadoCivil"
+      name="CNH"
       render={({ field }) => (
         <FormItem>
           <Select onValueChange={field.onChange} defaultValue={field.value}>
@@ -21,12 +21,14 @@ export function SelectEstadocivil({register}: FormInputProps) {
             </SelectTrigger>
             </FormControl>
             <SelectContent>
-              <SelectItem value="Solteiro">Solteiro</SelectItem>
-              <SelectItem value="Casado">Casado</SelectItem>
-              <SelectItem value="Divorciado">Divorciado</SelectItem>
-              <SelectItem value="Viúvo">Viúvo</SelectItem>
-              <SelectItem value="União estavel">União estavel</SelectItem>
-            </SelectContent>
+              <SelectItem value=" ">Nenhum</SelectItem>
+              <SelectItem value="A (Moto)">A (Moto)</SelectItem>
+              <SelectItem value="B (Carro)">B (Carro)</SelectItem>
+              <SelectItem value="C (Caminhão)">C (Caminhão)</SelectItem>
+              <SelectItem value="D (Onibus)">D (Onibus)</SelectItem>
+              <SelectItem value="E (Veículos Pesado)">E (Veículos Pesado)</SelectItem>
+              <SelectItem value="AB (Carro + Moto)">AB (Carro + Moto)</SelectItem>
+          </SelectContent>
           </Select>
         </FormItem>
       )}

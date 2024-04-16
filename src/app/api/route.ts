@@ -3,11 +3,34 @@ import { pdfTemplate } from "@/utils/pdfTemplate";
 
 export async function POST(req: Request) {
   const {
-    celularPessoal, email, celularRecado, habilidades, nome, cursos, educacao, endereco, estadoCivil, experiencia, idade, sobre
+    celularPessoal,
+    email,
+    celularRecado,
+    habilidades,
+    nome,
+    cursos,
+    educacao,
+    endereco,
+    estadoCivil,
+    experiencia,
+    idade,
+    sobre,
   } = await req.json();
-
   const myPdf = await generatePdf(
-    pdfTemplate({ celularPessoal, email, celularRecado, habilidades, nome, cursos, educacao, endereco, estadoCivil, experiencia, idade, sobre })
+    pdfTemplate({
+      celularPessoal,
+      email,
+      celularRecado,
+      habilidades,
+      nome,
+      cursos,
+      educacao,
+      endereco,
+      estadoCivil,
+      experiencia,
+      idade,
+      sobre,
+    })
   );
 
   // Create a Blob from the ArrayBuffer
@@ -18,5 +41,5 @@ export async function POST(req: Request) {
     type: "application/pdf",
   });
 
-  return new Response(file, { headers: { 'content-type': 'application/pdf' } })
+  return new Response(file, { headers: { "content-type": "application/pdf" } });
 }

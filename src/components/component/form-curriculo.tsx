@@ -189,9 +189,9 @@ export const FormCurriculo = () => {
               </Card>
             </div>
           </CardContent>
-          <CardFooter>
+          <CardFooter className="flex justify-center">
             <Button type="submit" disabled={isSubmitting || isLoading}>
-              {isSubmitting || isLoading ? "Carregando..." : "Gerar PDF"}
+              {isSubmitting || isLoading ? "Carregando..." : "Gerar Curriculo"}
             </Button>
           </CardFooter>
         </Card>

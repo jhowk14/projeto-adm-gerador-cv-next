@@ -169,7 +169,7 @@ export const FormCurriculo = () => {
                 </CardContent>
               </Card>
             </div>
-            <Adicionaveis onChange={handleFormularioChange} />
+              <Adicionaveis onChange={handleFormularioChange} />
             <div className="space-y-2">
               <Card>
                 <CardHeader>

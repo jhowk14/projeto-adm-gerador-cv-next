@@ -2,6 +2,7 @@
 import Image from "next/image";
 import { Footer } from "@/components/component/footer";
 import { FormCurriculo } from "@/components/component/form-curriculo";
+import { MagicMotion } from 'react-magic-motion';
 
 // testando sync
 export default function Home() {

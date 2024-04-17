@@ -14,7 +14,6 @@ export const generatePdf = async (pdfFileAsString: string) => {
   });
 
   const page = await browser.newPage();
-
   await page.evaluate(() => {
     const style = document.createElement("style");
     style.textContent = `

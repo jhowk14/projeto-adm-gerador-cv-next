@@ -7,6 +7,7 @@ import { Textarea } from "../ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Label } from "../ui/label";
 import { Checkbox } from "../ui/checkbox";
+import { MagicCard, MagicMotion } from "react-magic-motion";
 
 export const educacaoSchema = z.object({
   instituicao: z.string().optional(),
@@ -23,12 +24,13 @@ export const experienciaSchema = z.object({
   trabalhoAtual: z.boolean().optional()
 });
 
+type educacaoType = z.infer<typeof educacaoSchema>
+type experienciaType = z.infer<typeof experienciaSchema>
+
 const Adicionaveis = ({ onChange }: { onChange: (a: any) => void }) => {
-  const [formacoes, setFormacoes] = useState([educacaoSchema.parse({})]);
-  const [cursos, setCursos] = useState([educacaoSchema.parse({})]);
-  const [experiencias, setExperiencias] = useState([
-    experienciaSchema.parse({}),
-  ]);
+  const [formacoes, setFormacoes] = useState<educacaoType[]>([]);
+  const [cursos, setCursos] = useState<educacaoType[]>([]);
+  const [experiencias, setExperiencias] = useState<experienciaType[]>([]);
 
   const handleInputChange = () => {
     console.log(experiencias);
@@ -65,6 +67,7 @@ const Adicionaveis = ({ onChange }: { onChange: (a: any) => void }) => {
 
   return (
     <>
+     <MagicMotion>
       <Card onChange={handleInputChange}>
         <CardHeader>
           <CardTitle>Formações</CardTitle>
@@ -115,6 +118,8 @@ const Adicionaveis = ({ onChange }: { onChange: (a: any) => void }) => {
           </div>
         </CardContent>
       </Card>
+     </MagicMotion>
+     <MagicMotion>
       <Card onChange={handleInputChange}>
         <CardHeader>
           <CardTitle>Cursos</CardTitle>
@@ -165,6 +170,8 @@ const Adicionaveis = ({ onChange }: { onChange: (a: any) => void }) => {
           </div>
         </CardContent>
       </Card>
+     </MagicMotion>
+     <MagicMotion>
       <Card onChange={handleInputChange}>
         <CardHeader>
           <CardTitle>Experiências</CardTitle>
@@ -262,6 +269,7 @@ const Adicionaveis = ({ onChange }: { onChange: (a: any) => void }) => {
           </div>
         </CardContent>
       </Card>
+     </MagicMotion>
     </>
   );
 };

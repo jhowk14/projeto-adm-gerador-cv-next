@@ -1,14 +1,10 @@
 'use client'
 import Image from "next/image";
-import { useEffect } from "react";
 import { Footer } from "@/components/component/footer";
 import { FormCurriculo } from "@/components/component/form-curriculo";
 
 // testando sync
 export default function Home() {
-  useEffect(() => {
-    window.location.reload();
-  }, []);
   return (
     <>
       <main className="flex flex-col justify-center items-center bg-gray-700">

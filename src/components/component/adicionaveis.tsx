@@ -7,7 +7,6 @@ import { Textarea } from "../ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Label } from "../ui/label";
 import { Checkbox } from "../ui/checkbox";
-import { MagicCard, MagicMotion } from "react-magic-motion";
 
 export const educacaoSchema = z.object({
   instituicao: z.string().optional(),
@@ -67,7 +66,6 @@ const Adicionaveis = ({ onChange }: { onChange: (a: any) => void }) => {
 
   return (
     <>
-     <MagicMotion>
       <Card onChange={handleInputChange}>
         <CardHeader>
           <CardTitle>Formações</CardTitle>
@@ -118,8 +116,6 @@ const Adicionaveis = ({ onChange }: { onChange: (a: any) => void }) => {
           </div>
         </CardContent>
       </Card>
-     </MagicMotion>
-     <MagicMotion>
       <Card onChange={handleInputChange}>
         <CardHeader>
           <CardTitle>Cursos</CardTitle>
@@ -170,8 +166,6 @@ const Adicionaveis = ({ onChange }: { onChange: (a: any) => void }) => {
           </div>
         </CardContent>
       </Card>
-     </MagicMotion>
-     <MagicMotion>
       <Card onChange={handleInputChange}>
         <CardHeader>
           <CardTitle>Experiências</CardTitle>
@@ -269,7 +263,6 @@ const Adicionaveis = ({ onChange }: { onChange: (a: any) => void }) => {
           </div>
         </CardContent>
       </Card>
-     </MagicMotion>
     </>
   );
 };

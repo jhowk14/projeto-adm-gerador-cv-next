@@ -5,6 +5,7 @@ import { FormCurriculo } from "@/components/component/form-curriculo";
 
 // testando sync
 export default function Home() {
+  window.location.reload()
   return (
     <>
       <main className="flex flex-col justify-center items-center bg-gray-700">

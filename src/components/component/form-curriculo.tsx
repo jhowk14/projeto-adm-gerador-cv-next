@@ -7,7 +7,6 @@ import {
   CardFooter,
 } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { z } from "zod";
@@ -19,6 +18,7 @@ import { SelectEstadocivil } from "./select-estadocivil";
 import { useState } from "react";
 import Adicionaveis, { educacaoSchema, experienciaSchema } from "./adicionaveis";
 import { SelectCnh } from "./select-cnh";
+import { Input } from "../ui/input";
 
 const schema = z.object({
   nome: z.string().optional(),
@@ -62,7 +62,11 @@ export const FormCurriculo = () => {
       const pdfData = {
         ...data,
       };
+      
       const pdf = await generatePdf({ ...pdfData, ...adicionaveis });
+      if(pdf){
+        form.reset()
+      }
     } catch (error) {
       console.error("Error generating PDF:", error);
     }
@@ -87,6 +91,7 @@ export const FormCurriculo = () => {
               <div className="space-y-2">
                 <Label htmlFor="name">Nome</Label>
                 <Input
+                autoComplete="off"
                   id="name"
                   placeholder="Digite seu nome"
                   {...register("nome")}
@@ -95,6 +100,7 @@ export const FormCurriculo = () => {
               <div className="space-y-2">
                 <Label htmlFor="idade">Idade</Label>
                 <Input
+                autoComplete="off"
                   id="idade"
                   type="number"
                   placeholder="Digite sua idade"
@@ -108,6 +114,7 @@ export const FormCurriculo = () => {
               <div className="space-y-2">
                 <Label htmlFor="endereco">Endereço</Label>
                 <Input
+                autoComplete="off"
                   id="endereco"
                   placeholder="Digite seu endereço"
                   {...register("endereco")}
@@ -116,14 +123,16 @@ export const FormCurriculo = () => {
               <div className="space-y-2">
                 <Label htmlFor="celularPessoal">Celular Pessoal</Label>
                 <Input
+                autoComplete="off"
                   id="celularPessoal"
                   placeholder="Digite seu celular pessoal"
                   {...register("celularPessoal")}
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="celularRecado">Celular Recado (Nome)</Label>
+                <Label htmlFor="celularRecado">Celular Recado</Label>
                 <Input
+                autoComplete="off"
                   id="celularRecado"
                   placeholder="Digite o celular para recado"
                   {...register("celularRecado")}
@@ -132,6 +141,7 @@ export const FormCurriculo = () => {
               <div className="space-y-2">
                 <Label htmlFor="email">E-mail</Label>
                 <Input
+                autoComplete="off"
                   id="email"
                   type="email"
                   placeholder="Digite seu e-mail"

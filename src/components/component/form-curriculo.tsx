@@ -28,7 +28,7 @@ const schema = z.object({
   CNH: z.string().optional(),
   celularPessoal: z.string().optional(),
   celularRecado: z.string().optional(),
-  email: z.string().email().optional(),
+  email: z.string().optional(),
   habilidades: z.string().optional(),
   sobre: z.string().optional(),
 });
@@ -143,7 +143,7 @@ export const FormCurriculo = () => {
                 <Input
                 autoComplete="off"
                   id="email"
-                  type="email"
+                  type="text"
                   placeholder="Digite seu e-mail"
                   {...register("email")}
                 />

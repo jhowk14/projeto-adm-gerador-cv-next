@@ -43,7 +43,6 @@ export const FormCurriculo = () => {
   });
 
   const handleFormularioChange = (data: typeof adicionaveis) => {
-    console.log(data);
     setAdicionaveis(data);
   };
 
@@ -70,7 +69,6 @@ export const FormCurriculo = () => {
   };
 
   const generatePdf = async (data: any) => {
-    console.log(data);
     const response = await axios.post("/api", data, {
       responseType: "blob",
     });
@@ -87,6 +85,7 @@ export const FormCurriculo = () => {
               <div className="space-y-2">
                 <Label htmlFor="name">Nome</Label>
                 <Input
+                className="text-gray-950"
                 autoComplete="off"
                   id="name"
                   placeholder="Digite seu nome"
@@ -96,6 +95,7 @@ export const FormCurriculo = () => {
               <div className="space-y-2">
                 <Label htmlFor="idade">Idade</Label>
                 <Input
+                className="text-gray-950"
                 autoComplete="off"
                   id="idade"
                   type="number"
@@ -110,6 +110,7 @@ export const FormCurriculo = () => {
               <div className="space-y-2">
                 <Label htmlFor="endereco">Endereço</Label>
                 <Input
+                className="text-gray-950"
                 autoComplete="off"
                   id="endereco"
                   placeholder="Digite seu endereço"
@@ -119,6 +120,7 @@ export const FormCurriculo = () => {
               <div className="space-y-2">
                 <Label htmlFor="celularPessoal">Celular Pessoal</Label>
                 <Input
+                className="text-gray-950"
                 autoComplete="off"
                   id="celularPessoal"
                   placeholder="Digite seu celular pessoal"
@@ -128,6 +130,7 @@ export const FormCurriculo = () => {
               <div className="space-y-2">
                 <Label htmlFor="celularRecado">Celular Recado</Label>
                 <Input
+                className="text-gray-950"
                 autoComplete="off"
                   id="celularRecado"
                   placeholder="Digite o celular para recado"
@@ -137,6 +140,7 @@ export const FormCurriculo = () => {
               <div className="space-y-2">
                 <Label htmlFor="email">E-mail</Label>
                 <Input
+                className="text-gray-950"
                 autoComplete="off"
                   id="email"
                   type="text"

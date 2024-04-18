@@ -32,7 +32,6 @@ const Adicionaveis = ({ onChange }: { onChange: (a: any) => void }) => {
   const [experiencias, setExperiencias] = useState<experienciaType[]>([]);
 
   const handleInputChange = () => {
-    console.log(experiencias);
     onChange({ educacao: formacoes, experiencia: experiencias, cursos });
   };
 
@@ -177,8 +176,8 @@ const Adicionaveis = ({ onChange }: { onChange: (a: any) => void }) => {
         <CardContent>
           <div className="space-y-10">
           {experiencias.map((experiencia, index) => (
-            <>
-            <div key={index} className="flex items-center space-x-2">
+            <div key={index}>
+            <div  className="flex items-center space-x-2">
             <div className="w-full space-y-2">
                 <Input
                   type="text"
@@ -263,7 +262,7 @@ const Adicionaveis = ({ onChange }: { onChange: (a: any) => void }) => {
               </div>
               <ButtonRemove onClick={() => removerExperiencia(index)} />
               </div>
-              </>
+              </div>
           ))}
           </div>
           <div className="flex justify-center mt-5">

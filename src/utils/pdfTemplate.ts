@@ -34,6 +34,17 @@ export const pdfTemplate = ({
   habilidades?: string;
   sobre?: string;
 }) => {
+  function objetoVazio(obj: any) {
+    return Object.keys(obj).length === 0 && obj.constructor === Object;
+}
+const isEducacao = educacao.every(objetoVazio)
+const isCursos = educacao.every(objetoVazio)
+const isExperiencia = educacao.every(objetoVazio)
+
+
+console.log(isEducacao)
+// Verifica se todos os objetos no array estão vazios
+
   return /*html*/ `
     <!DOCTYPE html>
     <html lang="en">

@@ -65,14 +65,14 @@ export const pdfTemplate = ({
             ${email && `  <p><span class="font-bold">E-mail:</span> ${email}</p>`}
             ${CNH && `  <p><span class="font-bold">CNH:</span> ${CNH}</p>`}
             </div>
+            <hr class="bg-gray-800"/>
+            <div class="my-2">
+                <h2 class="text-lg font-bold mb-2">Formação Acadêmica</h2>
+                <ul class="list-disc pl-6 mb-2">
             ${educacao
               .map((edu) => {
                 if (edu.instituicao || edu.curso || edu.anoTermino) {
                   return /*html*/ `
-                  <hr class="bg-gray-800"/>
-                  <div class="my-2">
-                      <h2 class="text-lg font-bold mb-2">Formação Acadêmica</h2>
-                      <ul class="list-disc pl-6 mb-2">
                     <li class="mb-2">
                         ${
                           edu.instituicao
@@ -90,16 +90,19 @@ export const pdfTemplate = ({
                             : ""
                         }
                     </li>
-                    </ul>
-                </div>
                     `;
-                        } else {
-                          // Se nenhum campo estiver presente, retorna uma string vazia
-                          return "";
-                        }
-                      })
-                      .join("")}
-
+                  } else {
+                    // Se nenhum campo estiver presente, retorna uma string vazia
+                    return "";
+                  }
+                })
+                .join("")}
+                </ul>
+                </div>
+                <hr class="bg-gray-800"/>
+                <div class="my-2">
+                <h2 class="text-lg font-bold mb-2">Cursos</h2>
+                <ul class="list-disc pl-6 mb-2">
             ${cursos
               .map((curso) => {
                 if (
@@ -108,10 +111,6 @@ export const pdfTemplate = ({
                   curso.anoTermino
                 ) {
                   return /*html*/ `
-                  <hr class="bg-gray-800"/>
-                  <div class="my-2">
-                      <h2 class="text-lg font-bold mb-2">Cursos</h2>
-                      <ul class="list-disc pl-6 mb-2">
                     <li class="mb-2">
                         ${
                           curso.instituicao
@@ -128,15 +127,20 @@ export const pdfTemplate = ({
                             ? `<span>Ano de término: </span>${curso.anoTermino}<br/>`
                             : ""
                         }
-                        </li>;
-                        </ul>
-                    </div>`
+                        </li>
+                        `
                       } else {
                         // Se nenhum campo estiver presente, retorna uma string vazia
                         return "";
                       }
                     })
                     .join("")}
+                    </ul>
+                </div>
+                <hr class="bg-gray-800"/>
+                <div class="my-2">
+                    <h2 class="text-lg font-bold mb-2">Experiência Profissional</h2>
+                    <ul class="list-disc pl-6 mb-2">
                     ${experiencia
                       .map((exp) => {
                         if (
@@ -145,10 +149,6 @@ export const pdfTemplate = ({
                           exp.atividades
                         ) {
                           return /*html*/ `
-                          <hr class="bg-gray-800"/>
-                          <div class="my-2">
-                              <h2 class="text-lg font-bold mb-2">Experiência Profissional</h2>
-                              <ul class="list-disc pl-6 mb-2">
                     <li class="mb-2">
                         ${
                           exp.empresa
@@ -176,15 +176,15 @@ export const pdfTemplate = ({
                             : ""
                         }
                     </li>
-                    </ul>
-                </div> 
                     `;
-                        } else {
-                          // Se nenhum campo estiver presente, retorna uma string vazia
-                          return "";
-                        }
-                      })
-                      .join("")}
+                  } else {
+                    // Se nenhum campo estiver presente, retorna uma string vazia
+                    return "";
+                  }
+                })
+                .join("")}
+                </ul>
+            </div> 
             ${habilidades && /*html*/ `
             <hr class="bg-gray-800"/>
             <div class="my-2">

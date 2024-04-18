@@ -7,14 +7,14 @@ import { FormCurriculo } from "@/components/component/form-curriculo";
 export default function Home() {
   return (
     <>
-      <main className="flex flex-col justify-center items-center bg-gray-700">
-          <div className="flex items-center bg-gray-900 w-full justify-center py-4 gap-10 shadow">
-            <div className="">
-              <Image src='/img/icon.png' width={0} height={0} sizes="100vw" alt="logo" className="w-20 h-20" />
-            </div>
-            <h1 className="text-2xl font-bold text-gray-100">Gerador de Currículo</h1>
+     <main className="flex flex-col justify-center items-center bg-gray-700">
+        <div id="header" className="flex items-center opacity-85 bg-gray-900 w-full justify-center py-4 gap-10 shadow-md shadow-gray-950 fixed top-0 z-10">
+          <div className="opacity-100 blur-none">
+            <Image src='/img/icon.png' width={0} height={0} sizes="100vw" alt="logo" className="w-10 h-10" />
           </div>
-        <div className="px-2 py-8 w-full max-w-7xl">
+          <h1 className="text-xl opacity-100 font-bold text-gray-100">Gerador de Currículo</h1>
+        </div>
+        <div className="py-8 w-full max-w-7xl mt-10">
           <FormCurriculo />
         </div>
       </main>

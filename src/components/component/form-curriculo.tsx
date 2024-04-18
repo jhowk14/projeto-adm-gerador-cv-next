@@ -82,8 +82,7 @@ export const FormCurriculo = () => {
   return (
     <Form {...form}>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Card className="bg-gray-100">
-          <CardContent className="space-y-4 mt-6">
+          <CardContent className="space-y-4 mt-3 text-gray-100">
             <div className="grid md:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="name">Nome</Label>
@@ -191,7 +190,6 @@ export const FormCurriculo = () => {
               {isSubmitting || isLoading ? "Carregando..." : "Gerar Curriculo"}
             </Button>
           </CardFooter>
-        </Card>
       </form>
     </Form>
   );

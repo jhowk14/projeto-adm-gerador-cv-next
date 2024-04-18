@@ -13,7 +13,7 @@ export function SelectEstadocivil({register}: FormInputProps) {
       control={register.control}
       name="estadoCivil"
       render={({ field }) => (
-        <FormItem>
+        <FormItem className="text-gray-600">
           <Select onValueChange={field.onChange} defaultValue={field.value}>
             <FormControl>
             <SelectTrigger>

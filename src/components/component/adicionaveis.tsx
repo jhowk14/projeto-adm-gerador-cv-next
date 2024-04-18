@@ -71,9 +71,10 @@ const Adicionaveis = ({ onChange }: { onChange: (a: any) => void }) => {
           <CardTitle>Formações</CardTitle>
         </CardHeader>
         <CardContent>
+        <div className="space-y-8">
           {formacoes.map((formacao, index) => (
             <div key={index} className="flex items-center space-x-2">
-              <div className="w-full space-y-2 mb-5">
+              <div className="w-full space-y-2">
                 <Input
                   type="text"
                   value={formacao.instituicao || ""}
@@ -111,7 +112,8 @@ const Adicionaveis = ({ onChange }: { onChange: (a: any) => void }) => {
               <ButtonRemove onClick={() => removerFormacao(index)} />
             </div>
           ))}
-          <div className="flex justify-center">
+        </div>
+          <div className="flex justify-center mt-5">
             <ButtonAdd onClick={adicionarFormacao} />
           </div>
         </CardContent>
@@ -121,9 +123,10 @@ const Adicionaveis = ({ onChange }: { onChange: (a: any) => void }) => {
           <CardTitle>Cursos</CardTitle>
         </CardHeader>
         <CardContent>
+        <div className="space-y-8">
           {cursos.map((formacao, index) => (
             <div key={index} className="flex items-center space-x-2">
-              <div className="w-full space-y-2 mb-5">
+              <div className="w-full space-y-2">
                 <Input
                   type="text"
                   value={formacao.instituicao || ""}
@@ -161,7 +164,8 @@ const Adicionaveis = ({ onChange }: { onChange: (a: any) => void }) => {
               <ButtonRemove onClick={() => removerCursos(index)} />
             </div>
           ))}
-          <div className="flex justify-center">
+        </div>
+          <div className="flex justify-center mt-5">
             <ButtonAdd onClick={adicionarCursos} />
           </div>
         </CardContent>
@@ -171,9 +175,11 @@ const Adicionaveis = ({ onChange }: { onChange: (a: any) => void }) => {
           <CardTitle>Experiências</CardTitle>
         </CardHeader>
         <CardContent>
+          <div className="space-y-10">
           {experiencias.map((experiencia, index) => (
+            <>
             <div key={index} className="flex items-center space-x-2">
-              <div className="w-full space-y-2 mb-5">
+            <div className="w-full space-y-2">
                 <Input
                   type="text"
                   value={experiencia.empresa || ""}
@@ -256,9 +262,11 @@ const Adicionaveis = ({ onChange }: { onChange: (a: any) => void }) => {
                 />
               </div>
               <ButtonRemove onClick={() => removerExperiencia(index)} />
-            </div>
+              </div>
+              </>
           ))}
-          <div className="flex justify-center">
+          </div>
+          <div className="flex justify-center mt-5">
             <ButtonAdd onClick={adicionarExperiencia} />
           </div>
         </CardContent>

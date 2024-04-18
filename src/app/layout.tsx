@@ -6,7 +6,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Gerador de CV",
-  description: "Desenvolvido Por Jonathan Guilherme e Elieser TII",
+  description: "Gerador de Curriculo simplificado Desenvolvido Por Jonathan, Guilherme e Elieser TII Senac Catanduva",
 };
 
 export default function RootLayout({

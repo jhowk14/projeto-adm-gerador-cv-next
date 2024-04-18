@@ -202,8 +202,7 @@ const Adicionaveis = ({ onChange }: { onChange: (a: any) => void }) => {
                   placeholder="Cargo"
                   className="border rounded-md px-2 py-1 mr-2"
                 />
-                <div className="grid sm:grid-cols-2 gap-4">
-                  <div className="space-y-2 flex items-center gap-2">
+                  <div className="flex items-center gap-2">
                     <Label htmlFor="from">De</Label>
                     <Input
                       value={experiencia.from || ""}
@@ -217,7 +216,7 @@ const Adicionaveis = ({ onChange }: { onChange: (a: any) => void }) => {
                       type="month"
                     />
                   </div>
-                  <div className="space-y-2 flex items-center gap-2">
+                  <div className="flex items-center gap-2">
                     <Label htmlFor="to">Até</Label>
                     <Input
                         value={experiencia.to || ""}
@@ -232,7 +231,6 @@ const Adicionaveis = ({ onChange }: { onChange: (a: any) => void }) => {
                         disabled={experiencia.trabalhoAtual}
                       />
                   </div>
-                </div>
                 <div className="flex items-center space-x-2">
                   <Checkbox
                     checked={experiencia.trabalhoAtual || false}

@@ -63,10 +63,7 @@ export const FormCurriculo = () => {
         ...data,
       };
       
-      const pdf = await generatePdf({ ...pdfData, ...adicionaveis });
-      if(pdf){
-        form.reset()
-      }
+      await generatePdf({ ...pdfData, ...adicionaveis });
     } catch (error) {
       console.error("Error generating PDF:", error);
     }

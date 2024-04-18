@@ -37,14 +37,10 @@ export const pdfTemplate = ({
   function objetoVazio(obj: any) {
     return Object.keys(obj).length === 0 && obj.constructor === Object;
 }
-const isEducacao = educacao.every(objetoVazio)
-const isCursos = educacao.every(objetoVazio)
-const isExperiencia = educacao.every(objetoVazio)
-
-
-console.log(isEducacao)
+const isEducacao = !educacao.every(objetoVazio)
+const isCursos = !cursos.every(objetoVazio)
+const isExperiencia = !experiencia.every(objetoVazio)
 // Verifica se todos os objetos no array estão vazios
-
   return /*html*/ `
     <!DOCTYPE html>
     <html lang="en">
@@ -76,14 +72,14 @@ console.log(isEducacao)
             ${email && `  <p><span class="font-bold">E-mail:</span> ${email}</p>`}
             ${CNH && `  <p><span class="font-bold">CNH:</span> ${CNH}</p>`}
             </div>
-            <hr class="bg-gray-800"/>
+            ${isEducacao ? /*html*/`<hr class="bg-gray-800"/>
             <div class="my-2">
                 <h2 class="text-lg font-bold mb-2">Formação Acadêmica</h2>
                 <ul class="list-disc pl-6 mb-2">
             ${educacao
               .map((edu) => {
                 if (edu.instituicao || edu.curso || edu.anoTermino) {
-                  return /*html*/ `
+                  return /*html*/`
                     <li class="mb-2">
                         ${
                           edu.instituicao
@@ -109,7 +105,8 @@ console.log(isEducacao)
                 })
                 .join("")}
                 </ul>
-                </div>
+                </div>` : ''}
+                ${isCursos ? /*html*/`
                 <hr class="bg-gray-800"/>
                 <div class="my-2">
                 <h2 class="text-lg font-bold mb-2">Cursos</h2>
@@ -147,7 +144,8 @@ console.log(isEducacao)
                     })
                     .join("")}
                     </ul>
-                </div>
+                </div>` : ""}
+                ${isExperiencia ? /*html*/`
                 <hr class="bg-gray-800"/>
                 <div class="my-2">
                     <h2 class="text-lg font-bold mb-2">Experiência Profissional</h2>
@@ -195,7 +193,7 @@ console.log(isEducacao)
                 })
                 .join("")}
                 </ul>
-            </div> 
+            </div> ` : ''}
             ${habilidades && /*html*/ `
             <hr class="bg-gray-800"/>
             <div class="my-2">

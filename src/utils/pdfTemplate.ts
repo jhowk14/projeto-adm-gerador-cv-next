@@ -1,17 +1,17 @@
 export const pdfTemplate = ({
-  nome = '',
+  nome = "",
   idade,
-  estadoCivil= '',
-  endereco= '',
-  celularPessoal= '',
-  celularRecado= '',
-  email= '',
+  estadoCivil = "",
+  endereco = "",
+  celularPessoal = "",
+  celularRecado = "",
+  email = "",
   educacao = [],
   cursos = [],
-  CNH= '',
+  CNH = "",
   experiencia = [],
-  habilidades= '',
-  sobre= '',
+  habilidades = "",
+  sobre = "",
 }: {
   nome?: string;
   idade?: number;
@@ -27,20 +27,20 @@ export const pdfTemplate = ({
     empresa?: string;
     cargo?: string;
     atividades?: string;
-    from?: string,
-    to?: string,
-    trabalhoAtual?: boolean
+    from?: string;
+    to?: string;
+    trabalhoAtual?: boolean;
   }[];
   habilidades?: string;
   sobre?: string;
 }) => {
   function objetoVazio(obj: any) {
     return Object.keys(obj).length === 0 && obj.constructor === Object;
-}
-const isEducacao = !educacao.every(objetoVazio)
-const isCursos = !cursos.every(objetoVazio)
-const isExperiencia = !experiencia.every(objetoVazio)
-// Verifica se todos os objetos no array estão vazios
+  }
+  const isEducacao = !educacao.every(objetoVazio);
+  const isCursos = !cursos.every(objetoVazio);
+  const isExperiencia = !experiencia.every(objetoVazio);
+  // Verifica se todos os objetos no array estão vazios
   return /*html*/ `
     <!DOCTYPE html>
     <html lang="en">
@@ -61,25 +61,47 @@ const isExperiencia = !experiencia.every(objetoVazio)
     
     <body class="bg-gray-100">
         <div class="container mx-auto p-4">
-           ${nome && ` <h1 class="text-xl font-bold mb-1">${nome.toUpperCase()}</h1>`}
+           ${
+             nome &&
+             ` <h1 class="text-xl font-bold mb-1">${nome.toUpperCase()}</h1>`
+           }
             <hr class="bg-gray-800"/>
             <div class="my-2">
-            ${idade && `  <p><span class="font-bold">Idade:</span> ${idade}</p>`}
-            ${estadoCivil && `  <p><span class="font-bold">Estado Civil:</span> ${estadoCivil}</p>`}
-            ${endereco && `  <p><span class="font-bold">Endereço:</span> ${endereco}</p>`}
-            ${celularPessoal && `  <p><span class="font-bold">Celular Pessoal:</span> ${celularPessoal}</p>`}
-            ${celularRecado && `  <p><span class="font-bold">Celular Recado:</span> ${celularRecado}</p>`}
-            ${email && `  <p><span class="font-bold">E-mail:</span> ${email}</p>`}
+            ${
+              idade && `  <p><span class="font-bold">Idade:</span> ${idade}</p>`
+            }
+            ${
+              estadoCivil &&
+              `  <p><span class="font-bold">Estado Civil:</span> ${estadoCivil}</p>`
+            }
+            ${
+              endereco &&
+              `  <p><span class="font-bold">Endereço:</span> ${endereco}</p>`
+            }
+            ${
+              celularPessoal &&
+              `  <p><span class="font-bold">Celular Pessoal:</span> ${celularPessoal}</p>`
+            }
+            ${
+              celularRecado &&
+              `  <p><span class="font-bold">Celular Recado:</span> ${celularRecado}</p>`
+            }
+            ${
+              email &&
+              `  <p><span class="font-bold">E-mail:</span> ${email}</p>`
+            }
             ${CNH && `  <p><span class="font-bold">CNH:</span> ${CNH}</p>`}
             </div>
-            ${isEducacao ? /*html*/`<hr class="bg-gray-800"/>
+            ${
+              isEducacao
+                ? /*html*/ `<hr class="bg-gray-800"/>
             <div class="my-2">
                 <h2 class="text-lg font-bold mb-2">Formação Acadêmica</h2>
-                <ul class="list-disc pl-6 mb-2">
+                <ul class="list-disc pl-6 mb-2 grid grid-cols-3">
             ${educacao
               .map((edu) => {
                 if (edu.instituicao || edu.curso || edu.anoTermino) {
-                  return /*html*/`
+                  return /*html*/ `
                     <li class="mb-2">
                         ${
                           edu.instituicao
@@ -98,26 +120,26 @@ const isExperiencia = !experiencia.every(objetoVazio)
                         }
                     </li>
                     `;
-                  } else {
-                    // Se nenhum campo estiver presente, retorna uma string vazia
-                    return "";
-                  }
-                })
-                .join("")}
+                } else {
+                  // Se nenhum campo estiver presente, retorna uma string vazia
+                  return "";
+                }
+              })
+              .join("")}
                 </ul>
-                </div>` : ''}
-                ${isCursos ? /*html*/`
+                </div>`
+                : ""
+            }
+                ${
+                  isCursos
+                    ? /*html*/ `
                 <hr class="bg-gray-800"/>
                 <div class="my-2">
                 <h2 class="text-lg font-bold mb-2">Cursos</h2>
-                <ul class="list-disc pl-6 mb-2">
+                <ul class="list-disc pl-6 mb-2 grid grid-cols-3">
             ${cursos
               .map((curso) => {
-                if (
-                  curso.instituicao ||
-                  curso.curso ||
-                  curso.anoTermino
-                ) {
+                if (curso.instituicao || curso.curso || curso.anoTermino) {
                   return /*html*/ `
                     <li class="mb-2">
                         ${
@@ -136,27 +158,27 @@ const isExperiencia = !experiencia.every(objetoVazio)
                             : ""
                         }
                         </li>
-                        `
-                      } else {
-                        // Se nenhum campo estiver presente, retorna uma string vazia
-                        return "";
-                      }
-                    })
-                    .join("")}
+                        `;
+                } else {
+                  // Se nenhum campo estiver presente, retorna uma string vazia
+                  return "";
+                }
+              })
+              .join("")}
                     </ul>
-                </div>` : ""}
-                ${isExperiencia ? /*html*/`
+                </div>`
+                    : ""
+                }
+                ${
+                  isExperiencia
+                    ? /*html*/ `
                 <hr class="bg-gray-800"/>
                 <div class="my-2">
                     <h2 class="text-lg font-bold mb-2">Experiência Profissional</h2>
-                    <ul class="list-disc pl-6 mb-2">
+                    <ul class="list-disc pl-6 mb-2 grid grid-cols-3">
                     ${experiencia
                       .map((exp) => {
-                        if (
-                          exp.empresa ||
-                          exp.cargo ||
-                          exp.atividades
-                        ) {
+                        if (exp.empresa || exp.cargo || exp.atividades) {
                           return /*html*/ `
                     <li class="mb-2">
                         ${
@@ -171,7 +193,11 @@ const isExperiencia = !experiencia.every(objetoVazio)
                         }
                         ${
                           exp.from
-                            ? `<span>Duração: </span>${exp.from} ${exp.to && !exp.trabalhoAtual ?`até ${exp.to}`: ''}<br/>`
+                            ? `<span>Duração: </span>${exp.from} ${
+                                exp.to && !exp.trabalhoAtual
+                                  ? `até ${exp.to}`
+                                  : ""
+                              }<br/>`
                             : ""
                         }
                         ${
@@ -186,27 +212,35 @@ const isExperiencia = !experiencia.every(objetoVazio)
                         }
                     </li>
                     `;
-                  } else {
-                    // Se nenhum campo estiver presente, retorna uma string vazia
-                    return "";
-                  }
-                })
-                .join("")}
+                        } else {
+                          // Se nenhum campo estiver presente, retorna uma string vazia
+                          return "";
+                        }
+                      })
+                      .join("")}
                 </ul>
-            </div> ` : ''}
-            ${habilidades && /*html*/ `
+            </div> `
+                    : ""
+                }
+            ${
+              habilidades &&
+              /*html*/ `
             <hr class="bg-gray-800"/>
             <div class="my-2">
                 <h2 class="text-lg font-bold mb-2">Qualificações</h2>
                 <p>${habilidades}</p>
-            </div>`}
-            ${sobre && /*html*/ `
+            </div>`
+            }
+            ${
+              sobre &&
+              /*html*/ `
             <hr class="bg-gray-800"/>
             <div class="my-2">
                 <h2 class="text-lg font-bold mb-2">Objetivo</h2>
                 <p>${sobre}</p>
             </div>
-            `}
+            `
+            }
         </div>
     </body>
     </html>  

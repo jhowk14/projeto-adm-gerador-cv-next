@@ -175,7 +175,7 @@ export const pdfTemplate = ({
                 <hr class="bg-gray-800"/>
                 <div class="my-2">
                     <h2 class="text-lg font-bold mb-2">Experiência Profissional</h2>
-                    <ul class="list-disc pl-6 mb-2 grid grid-cols-3">
+                    <ul class="list-disc pl-6 mb-2 grid grid-cols-1">
                     ${experiencia
                       .map((exp) => {
                         if (exp.empresa || exp.cargo || exp.atividades) {

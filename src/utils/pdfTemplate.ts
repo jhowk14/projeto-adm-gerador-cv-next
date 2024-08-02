@@ -97,7 +97,7 @@ export const pdfTemplate = ({
                 ? /*html*/ `<hr class="bg-gray-800"/>
             <div class="my-2">
                 <h2 class="text-lg font-bold mb-2">Formação Acadêmica</h2>
-                <ul class="list-disc pl-6 mb-2 grid grid-cols-3">
+                <ul class="list-disc pl-6 mb-2 grid grid-cols-1">
             ${educacao
               .map((edu) => {
                 if (edu.instituicao || edu.curso || edu.anoTermino) {
@@ -136,7 +136,7 @@ export const pdfTemplate = ({
                 <hr class="bg-gray-800"/>
                 <div class="my-2">
                 <h2 class="text-lg font-bold mb-2">Cursos</h2>
-                <ul class="list-disc pl-6 mb-2 grid grid-cols-3">
+                <ul class="list-disc pl-6 mb-2 grid grid-cols-1">
             ${cursos
               .map((curso) => {
                 if (curso.instituicao || curso.curso || curso.anoTermino) {

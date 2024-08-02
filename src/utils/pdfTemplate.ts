@@ -103,21 +103,23 @@ export const pdfTemplate = ({
                 if (edu.instituicao || edu.curso || edu.anoTermino) {
                   return /*html*/ `
                     <li class="mb-2">
+                    <div class="flex gap-2">
                         ${
                           edu.instituicao
-                            ? `<span>Instituição: </span>${edu.instituicao}<br/>`
+                            ? `<div><span class="font-bold">Instituição: </span>${edu.instituicao}</div>`
                             : ""
                         }
                         ${
                           edu.curso
-                            ? `<span>Curso: </span>${edu.curso}<br/>`
+                            ? `<div><span class="font-bold">Curso: </span>${edu.curso}</div>`
                             : ""
                         }
                         ${
                           edu.anoTermino
-                            ? `<span>Ano de término: </span>${edu.anoTermino}<br/>`
+                            ? `<div><span class="font-bold">Ano de término: </span>${edu.anoTermino}</div>`
                             : ""
                         }
+                        </div>
                     </li>
                     `;
                 } else {
@@ -141,23 +143,25 @@ export const pdfTemplate = ({
               .map((curso) => {
                 if (curso.instituicao || curso.curso || curso.anoTermino) {
                   return /*html*/ `
-                    <li class="mb-2">
-                        ${
-                          curso.instituicao
-                            ? `<span>Instituição: </span>${curso.instituicao}<br/>`
-                            : ""
-                        }
-                        ${
-                          curso.curso
-                            ? `<span>Curso: </span>${curso.curso}<br/>`
-                            : ""
-                        }
-                        ${
-                          curso.anoTermino
-                            ? `<span>Ano de término: </span>${curso.anoTermino}<br/>`
-                            : ""
-                        }
-                        </li>
+                  <li class="mb-2">
+                  <div class="flex gap-2">
+                      ${
+                        curso.instituicao
+                          ? `<div><span class="font-bold">Instituição: </span>${curso.instituicao}</div>`
+                          : ""
+                      }
+                      ${
+                        curso.curso
+                          ? `<div><span class="font-bold">Curso: </span>${curso.curso}</div>`
+                          : ""
+                      }
+                      ${
+                        curso.anoTermino
+                          ? `<div><span class="font-bold">Ano de término: </span>${curso.anoTermino}</div>`
+                          : ""
+                      }
+                      </div>
+                  </li>
                         `;
                 } else {
                   // Se nenhum campo estiver presente, retorna uma string vazia
